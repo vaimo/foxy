@@ -104,7 +104,7 @@ class AssetUtil
         $assets = false;
 
         foreach ($requires as $require) {
-            if ('foxy/foxy' === $require->getTarget()) {
+            if ('vaimo/foxy' === $require->getTarget()) {
                 $assets = true;
 
                 break;
