@@ -18,6 +18,8 @@ use Composer\IO\IOInterface;
 use Composer\Plugin\PluginInterface;
 use Composer\Script\Event;
 use Composer\Script\ScriptEvents;
+use Composer\Installer\PackageEvents;
+use Composer\Installer\PackageEvent;
 use Composer\Util\Filesystem;
 use Composer\Util\ProcessExecutor;
 use Foxy\Asset\AssetManagerInterface;
@@ -40,6 +42,11 @@ class Foxy implements PluginInterface, EventSubscriberInterface
 {
     const REQUIRED_COMPOSER_VERSION = '1.5.0';
 
+    /**
+     * @var \Foxy\Composer\OperationAnalyser
+     */
+    protected $operationAnalyser;
+    
     /**
      * @var Config
      */
@@ -65,6 +72,11 @@ class Foxy implements PluginInterface, EventSubscriberInterface
      */
     protected $solver;
 
+    /**
+     * @var bool
+     */
+    protected $enabled = true;
+    
     /**
      * @var bool
      */
@@ -115,6 +127,7 @@ class Foxy implements PluginInterface, EventSubscriberInterface
             ScriptEvents::POST_UPDATE_CMD => array(
                 array('solveAssets', 100),
             ),
+            PackageEvents::PRE_PACKAGE_UNINSTALL => 'disableFeatures'
         );
     }
 
@@ -128,6 +141,8 @@ class Foxy implements PluginInterface, EventSubscriberInterface
         $input = ConsoleUtil::getInput($io);
         $executor = new ProcessExecutor($io);
         $fs = new Filesystem($executor);
+
+        $this->operationAnalyser = new \Foxy\Composer\OperationAnalyser();
 
         $this->config = ConfigBuilder::build($composer, self::$defaultConfig, $io);
         $this->assetManager = $this->getAssetManager($io, $this->config, $executor, $fs);
@@ -143,6 +158,10 @@ class Foxy implements PluginInterface, EventSubscriberInterface
      */
     public function init()
     {
+        if (!$this->enabled) {
+            return;
+        }
+        
         if (!$this->initialized) {
             $this->initialized = true;
             $this->assetFallback->save();
@@ -171,8 +190,24 @@ class Foxy implements PluginInterface, EventSubscriberInterface
      */
     public function solveAssets(Event $event)
     {
+        if (!$this->enabled) {
+            return;
+        }
+        
         $this->solver->setUpdatable(false !== strpos($event->getName(), 'update'));
         $this->solver->solve($event->getComposer(), $event->getIO());
+    }
+
+    /**
+     * Disable the features of the plugin
+     */
+    public function disableFeatures(PackageEvent $event)
+    {
+        if (!$this->operationAnalyser->isUninstallOperationForNamespace($event->getOperation(), __NAMESPACE__)) {
+            return;
+        }
+
+        $this->enabled = false;
     }
 
     /**
