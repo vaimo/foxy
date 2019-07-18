@@ -136,7 +136,7 @@ class Foxy implements PluginInterface, EventSubscriberInterface
      */
     public function activate(Composer $composer, IOInterface $io)
     {
-        ComposerUtil::validateVersion(static::REQUIRED_COMPOSER_VERSION, Composer::VERSION);
+//        ComposerUtil::validateVersion(static::REQUIRED_COMPOSER_VERSION, Composer::VERSION);
 
         $input = ConsoleUtil::getInput($io);
         $executor = new ProcessExecutor($io);

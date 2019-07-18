@@ -32,6 +32,11 @@ Foxy focuses solely on automation of the validation, addition, updating and dele
 the definition file of the asset package, while restoring the project state, as well as PHP dependencies if
 NPM or Yarn terminates with an error.
 
+### Vaimo Modifications
+
+* Provide clear uninstall functionality
+* Allow usage with lower Composer versions (<1.5)
+
 #### It is Fast
 
 Foxy retrieves the list of all Composer dependencies to inject the asset dependencies in the file `package.json`,
