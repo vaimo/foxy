@@ -17,7 +17,7 @@
     },
     "require-dev": {
         "composer/composer": "^1.5.0",
-        "vaimo/composer-changelogs": "^0.15.5"
+        "vaimo/composer-changelogs": "^0.15.6"
     },
     "replace": {
         "foxy/foxy": "*"

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2fb7560ef658891343fa6e4a1884d178",
+    "content-hash": "b6a28e344f0f3dee23146e557db93f1d",
     "packages": [],
     "packages-dev": [
         {
@@ -1104,16 +1104,16 @@
         },
         {
             "name": "vaimo/composer-changelogs",
-            "version": "0.15.5",
+            "version": "0.15.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vaimo/composer-changelogs.git",
-                "reference": "22635c0c5393fc5068ca3cf946be8a51c9a65818"
+                "reference": "9fdc00ea8c30b2d4257a826be86c0a05d8dc23cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vaimo/composer-changelogs/zipball/22635c0c5393fc5068ca3cf946be8a51c9a65818",
-                "reference": "22635c0c5393fc5068ca3cf946be8a51c9a65818",
+                "url": "https://api.github.com/repos/vaimo/composer-changelogs/zipball/9fdc00ea8c30b2d4257a826be86c0a05d8dc23cc",
+                "reference": "9fdc00ea8c30b2d4257a826be86c0a05d8dc23cc",
                 "shasum": ""
             },
             "require": {
@@ -1166,7 +1166,7 @@
                 "grouped changes",
                 "semantic meaning for change"
             ],
-            "time": "2019-07-19T06:19:11+00:00"
+            "time": "2019-07-29T12:29:20+00:00"
         }
     ],
     "aliases": [],
