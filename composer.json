@@ -16,7 +16,8 @@
         "composer-plugin-api": "^1.1"
     },
     "require-dev": {
-        "composer/composer": "^1.5.0"
+        "composer/composer": "^1.5.0",
+        "vaimo/composer-changelogs": "^0.15.5"
     },
     "replace": {
         "foxy/foxy": "*"
@@ -40,6 +41,12 @@
         "class": "Foxy\\Foxy",
         "branch-alias": {
             "dev-master": "1.0-dev"
+        },
+        "changelog": {
+            "source": "changelog.json",
+            "output": {
+                "md": "CHANGELOG.md"
+            }
         }
     }
 }

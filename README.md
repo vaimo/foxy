@@ -36,6 +36,7 @@ NPM or Yarn terminates with an error.
 
 * Provide clear uninstall functionality
 * Allow usage with lower Composer versions (<1.5)
+* Remove 'node_modules' folder on uninstall (unless FOXY_NO_CLEANUP env flag or root package's extra/foxy/cleanup:false used)
 
 #### It is Fast
 

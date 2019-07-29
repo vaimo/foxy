@@ -207,9 +207,35 @@ class Foxy implements PluginInterface, EventSubscriberInterface
             return;
         }
 
+        $package = $event->getComposer()->getPackage();
+        
         $this->enabled = false;
+
+        $extra = $package->getExtra();
+        
+        if ((isset($extra['foxy']['cleanup']) && !$extra['foxy']['cleanup']) || getenv('FOXY_NO_CLEANUP')) {
+            return;
+        }
+
+        $fileSystem = new Filesystem();
+
+        $fileSystem->removeDirectory(
+            $this->composePath(getcwd(), DIRECTORY_SEPARATOR, 'node_modules')
+        );
     }
 
+    private function composePath()
+    {
+        $pathSegments = array_map(function ($item) {
+            return rtrim($item, \DIRECTORY_SEPARATOR);
+        }, func_get_args());
+
+        return implode(
+            DIRECTORY_SEPARATOR,
+            array_filter($pathSegments)
+        );
+    }
+    
     /**
      * Get the asset manager.
      *
