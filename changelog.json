@@ -4,7 +4,7 @@
         "possible to generate change-logs in other formats as well (when needed) and to do automatic releases based on",
         "added change-log records. More on how to use it: https://github.com/vaimo/composer-changelogs"
     ],
-    "1.0.6.5": {
+    "v1.0.6.5": {
         "fix": [
             "node_modules not cleaned up after the plugin gets uninstalled (unless FOXY_NO_CLEANUP or root package config extra/foxy/cleanup:false used"
         ]
