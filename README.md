@@ -32,6 +32,8 @@ Foxy focuses solely on automation of the validation, addition, updating and dele
 the definition file of the asset package, while restoring the project state, as well as PHP dependencies if
 NPM or Yarn terminates with an error.
 
+More information on recent changes [HERE](./CHANGELOG.md).
+
 ### Vaimo Modifications
 
 * Provide clear uninstall functionality
