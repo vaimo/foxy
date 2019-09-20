@@ -73,6 +73,11 @@ class Foxy implements PluginInterface, EventSubscriberInterface
     protected $solver;
 
     /**
+     * @var \Foxy\Strategy\BootstrapStrategy
+     */
+    protected $bootstrapStrategy;
+
+    /**
      * @var bool
      */
     protected $enabled = true;
@@ -136,7 +141,10 @@ class Foxy implements PluginInterface, EventSubscriberInterface
      */
     public function activate(Composer $composer, IOInterface $io)
     {
-//        ComposerUtil::validateVersion(static::REQUIRED_COMPOSER_VERSION, Composer::VERSION);
+        $composerContextFactory = new \Foxy\Factory\ComposerContextFactory($composer);
+        $composerContext = $composerContextFactory->create();
+
+        $this->bootstrapStrategy = new \Foxy\Strategy\BootstrapStrategy($composerContext);
 
         $input = ConsoleUtil::getInput($io);
         $executor = new ProcessExecutor($io);
@@ -158,7 +166,7 @@ class Foxy implements PluginInterface, EventSubscriberInterface
      */
     public function init()
     {
-        if (!$this->enabled) {
+        if (!$this->isEnabled()) {
             return;
         }
         
@@ -190,7 +198,7 @@ class Foxy implements PluginInterface, EventSubscriberInterface
      */
     public function solveAssets(Event $event)
     {
-        if (!$this->enabled) {
+        if (!$this->isEnabled()) {
             return;
         }
         
@@ -198,6 +206,11 @@ class Foxy implements PluginInterface, EventSubscriberInterface
         $this->solver->solve($event->getComposer(), $event->getIO());
     }
 
+    private function isEnabled()
+    {
+        return $this->enabled && $this->bootstrapStrategy->shouldAllow();
+    }
+    
     /**
      * Disable the features of the plugin
      */
