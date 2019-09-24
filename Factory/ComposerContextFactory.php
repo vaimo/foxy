@@ -35,6 +35,8 @@ class ComposerContextFactory
 
         array_unshift($instances, self::$globalComposer);
 
-        return new \Foxy\Composer\Context($instances);
+        return new \Foxy\Composer\Context(
+            array_filter($instances)
+        );
     }
 }
